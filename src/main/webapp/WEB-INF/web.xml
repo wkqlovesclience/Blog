@@ -46,7 +46,7 @@
 	</listener>
 	
 	<listener>  
-        <listener-class>com.java1234.service.impl.InitComponent</listener-class>  
+        <listener-class>com.sclience.service.impl.InitComponent</listener-class>
     </listener> 
 	
 	<!-- 添加对springmvc的支持 -->

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>${pageTitle }-Powered by java1234</title>
+<title>${pageTitle }-我想靜靜</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap3/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap3/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/blog.css">
@@ -73,10 +73,9 @@
 				</div>
 			</div>
 		</div>
-		
-		
 	</div>
-	
+
+
 	<jsp:include page="/foreground/common/foot.jsp"/>
 </div>
 </body>
