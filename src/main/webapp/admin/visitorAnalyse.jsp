@@ -44,11 +44,11 @@
         legend: {
             orient: 'vertical',
             left: 'left',
-            data: ['男', '女']
+            data: ['访客']
         },
         visualMap: {
             min: 0,
-            max: 2500,
+            max: 1000,
             left: 'left',
             top: 'bottom',
             text: ['高', '低'],           // 文本，默认为数值文本
@@ -68,24 +68,10 @@
         },
         series: [
             {
-                name: '男',
+                name: '访客',
                 type: 'map',
                 mapType: 'china',
                 roam: false,
-                label: {
-                    normal: {
-                        show: true
-                    },
-                    emphasis: {
-                        show: true
-                    }
-                },
-                data: []
-            },
-            {
-                name: '女',
-                type: 'map',
-                mapType: 'china',
                 label: {
                     normal: {
                         show: true
@@ -106,18 +92,7 @@
             myChart.setOption({
                 series: [{
                     // 根据名字对应到相应的系列
-                    name: '男',
-                    data: data
-                }]
-            });
-        }, "json");
-
-        $.post("${pageContext.request.contextPath}/admin/visitor/femaleStatistic.do", function (data) {
-            console.log(data);
-            myChart.setOption({
-                series: [{
-                    // 根据名字对应到相应的系列
-                    name: '女',
+                    name: '访客',
                     data: data
                 }]
             });

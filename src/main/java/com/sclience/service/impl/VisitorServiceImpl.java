@@ -2,9 +2,12 @@ package com.sclience.service.impl;
 
 import com.sclience.dao.VisitorMapper;
 import com.sclience.entity.Visitor;
+import com.sclience.pojo.VisitoryPojo;
 import com.sclience.service.VisitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class VisitorServiceImpl implements VisitorService {
@@ -23,5 +26,14 @@ public class VisitorServiceImpl implements VisitorService {
 
     public Integer updateVisitor(Visitor visitor) {
         return visitorMapper.updateByPrimaryKey(visitor);
+    }
+
+    public List<Visitor> getAllVisitor() {
+        return visitorMapper.getAllVisitor();
+    }
+
+    public List<VisitoryPojo> getVisitorInProvinceCount(){
+        return visitorMapper.getVisitorInProvinceCount();
+
     }
 }

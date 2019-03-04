@@ -28,11 +28,17 @@
 	<jsp:include page="/foreground/common/menu.jsp"/>
 	
 	<div class="row">
-		<div class="col-md-9">
-			<jsp:include page="${mainPage }"></jsp:include>
-		</div>
 		
 		<div class="col-md-3">
+			<div class="data_list">
+				<div class="data_list_title">
+					<img src="${pageContext.request.contextPath}/static/images/comment_icon.png"/>
+					扫一扫，加我哟
+				</div>
+				<div class="user_image">
+					<img src="${pageContext.request.contextPath}/static/images/wechat.jpg"/>
+				</div>
+			</div>
 			<div class="data_list">
 				<div class="data_list_title">
 					<img src="${pageContext.request.contextPath}/static/images/user_icon.png"/>
@@ -72,6 +78,9 @@
 					</ul>
 				</div>
 			</div>
+		</div>
+		<div class="col-md-9">
+			<jsp:include page="${mainPage }"></jsp:include>
 		</div>
 	</div>
 

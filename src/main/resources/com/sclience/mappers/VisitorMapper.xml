@@ -30,6 +30,20 @@
     where visitor_ip = #{ip}
   </select>
 
+  <select id="getAllVisitor" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from t_visitor
+  </select>
+
+  <select id="getVisitorInProvinceCount" resultType="com.sclience.pojo.VisitoryPojo" >
+    select visitor_province name , SUM(visitor_count) value from t_visitor GROUP BY visitor_province
+  </select>
+
+
+
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_visitor
     where visitor_id = #{visitorId,jdbcType=INTEGER}
