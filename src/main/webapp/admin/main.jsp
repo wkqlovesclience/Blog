@@ -96,7 +96,7 @@
 </script>
 </head>
 <body class="easyui-layout">
-<div region="north" style="height: 78px;background-color: #E0ECFF">
+<div region="north" style="height: 78px;background-color: #ffffff">
 	<table style="padding: 5px" width="100%">
 		<tr>
 			<td width="50%">
