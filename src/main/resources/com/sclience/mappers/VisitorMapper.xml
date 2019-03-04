@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sclience.dao.VisitorMapper" >
+  <resultMap id="BaseResultMap" type="com.sclience.entity.Visitor" >
+    <id column="visitor_id" property="visitorId" jdbcType="INTEGER" />
+    <result column="visitor_ip" property="visitorIp" jdbcType="VARCHAR" />
+    <result column="visitory_url" property="visitoryUrl" jdbcType="VARCHAR" />
+    <result column="visitor_country" property="visitorCountry" jdbcType="VARCHAR" />
+    <result column="visitor_province" property="visitorProvince" jdbcType="VARCHAR" />
+    <result column="visitor_city" property="visitorCity" jdbcType="VARCHAR" />
+    <result column="visitor_area" property="visitorArea" jdbcType="VARCHAR" />
+    <result column="visitory_time" property="visitoryTime" jdbcType="TIMESTAMP" />
+    <result column="visitor_count" property="visitorCount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    visitor_id, visitor_ip, visitory_url, visitor_country, visitor_province, visitor_city, 
+    visitor_area, visitory_time, visitor_count
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_visitor
+    where visitor_id = #{visitorId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getVisitorByIp" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from t_visitor
+    where visitor_ip = #{ip}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_visitor
+    where visitor_id = #{visitorId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.sclience.entity.Visitor" >
+    insert into t_visitor (visitor_id, visitor_ip, visitory_url, 
+      visitor_country, visitor_province, visitor_city, 
+      visitor_area, visitory_time, visitor_count
+      )
+    values (#{visitorId,jdbcType=INTEGER}, #{visitorIp,jdbcType=VARCHAR}, #{visitoryUrl,jdbcType=VARCHAR}, 
+      #{visitorCountry,jdbcType=VARCHAR}, #{visitorProvince,jdbcType=VARCHAR}, #{visitorCity,jdbcType=VARCHAR}, 
+      #{visitorArea,jdbcType=VARCHAR}, #{visitoryTime,jdbcType=TIMESTAMP}, #{visitorCount,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sclience.entity.Visitor" >
+    insert into t_visitor
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="visitorId != null" >
+        visitor_id,
+      </if>
+      <if test="visitorIp != null" >
+        visitor_ip,
+      </if>
+      <if test="visitoryUrl != null" >
+        visitory_url,
+      </if>
+      <if test="visitorCountry != null" >
+        visitor_country,
+      </if>
+      <if test="visitorProvince != null" >
+        visitor_province,
+      </if>
+      <if test="visitorCity != null" >
+        visitor_city,
+      </if>
+      <if test="visitorArea != null" >
+        visitor_area,
+      </if>
+      <if test="visitoryTime != null" >
+        visitory_time,
+      </if>
+      <if test="visitorCount != null" >
+        visitor_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="visitorId != null" >
+        #{visitorId,jdbcType=INTEGER},
+      </if>
+      <if test="visitorIp != null" >
+        #{visitorIp,jdbcType=VARCHAR},
+      </if>
+      <if test="visitoryUrl != null" >
+        #{visitoryUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorCountry != null" >
+        #{visitorCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorProvince != null" >
+        #{visitorProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorCity != null" >
+        #{visitorCity,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorArea != null" >
+        #{visitorArea,jdbcType=VARCHAR},
+      </if>
+      <if test="visitoryTime != null" >
+        #{visitoryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="visitorCount != null" >
+        #{visitorCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sclience.entity.Visitor" >
+    update t_visitor
+    <set >
+      <if test="visitorIp != null" >
+        visitor_ip = #{visitorIp,jdbcType=VARCHAR},
+      </if>
+      <if test="visitoryUrl != null" >
+        visitory_url = #{visitoryUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorCountry != null" >
+        visitor_country = #{visitorCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorProvince != null" >
+        visitor_province = #{visitorProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorCity != null" >
+        visitor_city = #{visitorCity,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorArea != null" >
+        visitor_area = #{visitorArea,jdbcType=VARCHAR},
+      </if>
+      <if test="visitoryTime != null" >
+        visitory_time = #{visitoryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="visitorCount != null" >
+        visitor_count = #{visitorCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where visitor_id = #{visitorId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sclience.entity.Visitor" >
+    update t_visitor
+    set visitor_ip = #{visitorIp,jdbcType=VARCHAR},
+      visitory_url = #{visitoryUrl,jdbcType=VARCHAR},
+      visitor_country = #{visitorCountry,jdbcType=VARCHAR},
+      visitor_province = #{visitorProvince,jdbcType=VARCHAR},
+      visitor_city = #{visitorCity,jdbcType=VARCHAR},
+      visitor_area = #{visitorArea,jdbcType=VARCHAR},
+      visitory_time = #{visitoryTime,jdbcType=TIMESTAMP},
+      visitor_count = #{visitorCount,jdbcType=INTEGER}
+    where visitor_id = #{visitorId,jdbcType=INTEGER}
+  </update>
+</mapper>

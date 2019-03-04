@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.sclience.aop.LogAnnotation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,6 +45,7 @@ public class BlogController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/articles/{id}")
+	@LogAnnotation(name = "博客详细信息")
 	public ModelAndView details(@PathVariable("id") Integer id,HttpServletRequest request)throws Exception{
 		ModelAndView mav=new ModelAndView();
 		Blog blog=blogService.findById(id);
@@ -55,7 +57,7 @@ public class BlogController {
 		mav.addObject("commentList", commentService.list(map)); // 查询所有评论信息
 		mav.addObject("pageCode", this.genUpAndDownPageCode(blogService.getLastBlog(id),blogService.getNextBlog(id),request.getServletContext().getContextPath()));
 		mav.addObject("mainPage", "foreground/blog/view.jsp");
-		mav.addObject("pageTitle",blog.getTitle()+"_Java开源博客系统");
+		mav.addObject("pageTitle",blog.getTitle()+"_我想靜靜博客");
 		mav.setViewName("mainTemp");
 		return mav;
 	}
@@ -67,6 +69,7 @@ public class BlogController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/q")
+	@LogAnnotation(name = "根据关键字查询相关博客信息")
 	public ModelAndView search(@RequestParam(value="q",required=false)String q,@RequestParam(value="page",required=false)String page,HttpServletRequest request)throws Exception{
 		if(StringUtil.isEmpty(page)){
 			page="1";
@@ -79,7 +82,7 @@ public class BlogController {
 		mav.addObject("pageCode",this.genUpAndDownPageCode(Integer.parseInt(page), blogList.size(), q,10,request.getServletContext().getContextPath()));
 		mav.addObject("q",q);
 		mav.addObject("resultTotal",blogList.size());
-		mav.addObject("pageTitle","搜索关键字'"+q+"'结果页面_Java开源博客系统");
+		mav.addObject("pageTitle","搜索关键字'"+q+"'结果页面_我想靜靜博客");
 		mav.setViewName("mainTemp");
 		return mav;
 	}
