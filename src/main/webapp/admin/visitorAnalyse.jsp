@@ -17,7 +17,7 @@
 </head>
 <body>
 <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-<div id="statistics_china" style="width: 90%;height: 380%;margin-top: 30px;margin-left: 30px">
+<div id="statistics_china" style="width: 90%;height: 550%;margin-top: 30px;margin-left: 30px">
 
 </div>
  
@@ -87,7 +87,7 @@
     myChart.setOption(option);
 
     $(function () {
-        $.post("${pageContext.request.contextPath}/admin/visitor/maleStatistic.do", function (data) {
+        $.post("${pageContext.request.contextPath}/admin/visitor/visitorStatistic.do", function (data) {
             console.log(data);
             myChart.setOption({
                 series: [{

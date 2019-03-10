@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sclience.dao.VisitorMapper" >
+<mapper namespace="com.sclience.dao.VisitorDao" >
   <resultMap id="BaseResultMap" type="com.sclience.entity.Visitor" >
     <id column="visitor_id" property="visitorId" jdbcType="INTEGER" />
     <result column="visitor_ip" property="visitorIp" jdbcType="VARCHAR" />
@@ -38,6 +38,26 @@
 
   <select id="getVisitorInProvinceCount" resultType="com.sclience.pojo.VisitoryPojo" >
     select visitor_province name , SUM(visitor_count) value from t_visitor GROUP BY visitor_province
+  </select>
+
+  <select id="getVisitorTrend" resultType="com.sclience.pojo.VisitoryTrendPojo" >
+    SELECT
+        t3.myYear AS year,
+        t3.myMonth AS month,
+        SUM(t3.visitCount) as vositorCount
+    FROM
+        (
+            SELECT
+                YEAR (t1.visitory_time) AS myYear,
+                MONTH (t1.visitory_time) AS myMonth,
+                COUNT(1) AS visitCount
+            FROM
+                t_visitor t1
+        ) t3
+    WHERE
+        t3.myYear = #{yearNum}
+    GROUP BY
+        t3.myMonth
   </select>
 
 

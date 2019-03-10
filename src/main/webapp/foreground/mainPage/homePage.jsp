@@ -1,17 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- saved from url=(0021)http://www.gaozhy.cn/ -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="renderer" content="webkit">
+	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
-	<meta name="description" content="我想静静">
-	<meta name="keywords" content="sclience">
+	<meta name="description" content="gaozhy&#39;s homepage">
+	<meta name="keywords" content="gaozhy">
 	<title>我想静静</title>
+	<link rel="shortcut icon" type="image/x-icon" href="http://www.gaozhy.cn/resources/timg.jpg">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/index.css">
 	<link rel="stylesheet" media="screen" href="${pageContext.request.contextPath}/static/css/style.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap3/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap3/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/blog.css">
-	<link href="${pageContext.request.contextPath}/static/images/blogger.ico" rel="SHORTCUT ICON">
+	<link href="http://blog.java1234.com/favicon.ico" rel="SHORTCUT ICON">
 	<script src="${pageContext.request.contextPath}/static/bootstrap3/js/jquery-1.11.2.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/bootstrap3/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/index.js"></script>
@@ -23,7 +26,7 @@
 	</style>
 </head>
 <body class="overlay">
-	<div id="imgs" style="opacity: 0.3">
+	<div id="imgs">
 	  <!-- <div id="bg1" class="bg"></div> -->
 	  <div id="bg2" class="bg"></div>
 	  <!-- <div id="bg3" class="bg"></div> -->
@@ -46,7 +49,10 @@
 
 	<%--<div class="overlay"></div>--%>
 	<div id="particles-js"><canvas class="particles-js-canvas-el" width="1920" height="942" style="width: 100%; height: 100%;"></canvas></div>
-    <jsp:include page="/main.jsp"/>
+    <jsp:include page="/mainTemp.jsp"/>
+
+
+
 	<div class="footer">
 		<div class="time" id="aa">Time:1H 2M 24S </div>
 		<div class="copyright">
@@ -80,7 +86,7 @@
 		}
 	}
 	//设置轮播间隔
-	setInterval(turnImgs, 5000);
+	setInterval(turnImgs, 8000);
 
 
 	/* 设置时间 */

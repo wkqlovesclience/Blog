@@ -120,3 +120,15 @@
 .icon-submit{
 	background:url('usericons/submit.png') no-repeat center center;
 }
+
+.icon-visitor{
+	background:url('usericons/visitor.png') no-repeat center center;
+}
+
+.icon-trend{
+	background:url('usericons/trend.png') no-repeat center center;
+}
+
+.icon-map{
+	background:url('usericons/map.png') no-repeat center center;
+}
