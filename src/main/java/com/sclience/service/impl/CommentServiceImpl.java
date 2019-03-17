@@ -13,7 +13,7 @@ import com.sclience.service.CommentService;
 
 /**
  * 评论Service实现类
- * @author Administrator
+ * @author wangkeqiang
  *
  */
 @Service("commentService")

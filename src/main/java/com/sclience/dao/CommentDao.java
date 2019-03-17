@@ -7,7 +7,7 @@ import com.sclience.entity.Comment;
 
 /**
  * 评论Dao接口
- * @author Administrator
+ * @author wangkeqiang
  *
  */
 public interface CommentDao {

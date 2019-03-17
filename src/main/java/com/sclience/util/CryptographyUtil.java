@@ -4,7 +4,7 @@ import org.apache.shiro.crypto.hash.Md5Hash;
 
 /**
  * 加密工具
- * @author Administrator
+ * @author wangkeqiang
  *
  */
 public class CryptographyUtil {

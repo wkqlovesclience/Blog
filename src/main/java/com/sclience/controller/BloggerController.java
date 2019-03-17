@@ -17,7 +17,7 @@ import com.sclience.util.CryptographyUtil;
 
 /**
  * 博主Controller层
- * @author java1234_小锋
+ * @author wangkeqiang
  *
  */
 @Controller

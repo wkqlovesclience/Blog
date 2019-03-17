@@ -7,7 +7,7 @@ import com.sclience.entity.Blog;
 
 /**
  * 博客Dao接口
- * @author Administrator
+ * @author wangkeqiang
  *
  */
 public interface BlogDao {

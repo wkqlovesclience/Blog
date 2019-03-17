@@ -2,7 +2,7 @@ package com.sclience.entity;
 
 /**
  * 博客类型实体
- * @author Administrator
+ * @author wangkeqiang
  *
  */
 public class BlogType {

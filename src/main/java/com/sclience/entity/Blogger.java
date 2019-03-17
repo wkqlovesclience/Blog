@@ -2,7 +2,7 @@ package com.sclience.entity;
 
 /**
  * 博主实体
- * @author java1234_小锋
+ * @author wangkeqiang
  *
  */
 public class Blogger {

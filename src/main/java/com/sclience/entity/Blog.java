@@ -4,11 +4,10 @@ import java.util.Date;
 
 /**
  * 博客实体
- * @author Administrator
+ * @author wangkeqiang
  *
  */
 public class Blog {
-
 	private Integer id; // 编号
 	private String title; // 博客标题
 	private String summary; // 摘要

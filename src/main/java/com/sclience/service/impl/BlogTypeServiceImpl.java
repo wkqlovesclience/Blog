@@ -13,7 +13,7 @@ import com.sclience.service.BlogTypeService;
 
 /**
  * 博客类型Service实现类
- * @author Administrator
+ * @author wangkeqiang
  *
  */
 @Service("blogTypeService")

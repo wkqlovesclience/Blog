@@ -7,7 +7,7 @@ import com.sclience.entity.BlogType;
 
 /**
  * 博客类型Service接口
- * @author Administrator
+ * @author wangkeqiang
  *
  */
 public interface BlogTypeService {

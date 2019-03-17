@@ -3,25 +3,21 @@ package com.sclience.controller.admin;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.sclience.entity.BlogType;
 import com.sclience.entity.PageBean;
 import com.sclience.service.BlogTypeService;
-import com.sclience.util.ResponseUtil;
-
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 管理员博客类别Controller层
- * @author Administrator
+ * @author wangkeqiang
  *
  */
 @Controller
@@ -35,12 +31,12 @@ public class BlogTypeAdminController {
 	 * 分页查询博客类别信息
 	 * @param page
 	 * @param rows
-	 * @param response
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/list")
-	public String list(@RequestParam(value="page",required=false)String page,@RequestParam(value="rows",required=false)String rows,HttpServletResponse response)throws Exception{
+	@ResponseBody
+	public Object list(@RequestParam(value="page",required=false)String page,@RequestParam(value="rows",required=false)String rows)throws Exception{
 		PageBean pageBean=new PageBean(Integer.parseInt(page),Integer.parseInt(rows));
 		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("start", pageBean.getStart());
@@ -51,19 +47,18 @@ public class BlogTypeAdminController {
 		JSONArray jsonArray=JSONArray.fromObject(blogTypeList);
 		result.put("rows", jsonArray);
 		result.put("total", total);
-		ResponseUtil.write(response, result);
-		return null;
+		return result;
 	}
 	
 	/**
 	 * 添加或者修改博客类别信息
 	 * @param blogType
-	 * @param response
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/save")
-	public String save(BlogType blogType,HttpServletResponse response)throws Exception{
+	@ResponseBody
+	public Object save(BlogType blogType)throws Exception{
 		int resultTotal=0; // 操作的记录条数
 		if(blogType.getId()==null){
 			resultTotal=blogTypeService.add(blogType);
@@ -76,26 +71,24 @@ public class BlogTypeAdminController {
 		}else{
 			result.put("success", false);
 		}
-		ResponseUtil.write(response, result);
-		return null;
+		return result;
 	}
 	
 	/**
 	 * 删除博客类别信息
 	 * @param ids
-	 * @param response
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/delete")
-	public String delete(@RequestParam(value="ids")String ids,HttpServletResponse response)throws Exception{
+	@ResponseBody
+	public Object delete(@RequestParam(value="ids")String ids)throws Exception{
 		String []idsStr=ids.split(",");
 		for(int i=0;i<idsStr.length;i++){
 			blogTypeService.delete(Integer.parseInt(idsStr[i]));
 		}
 		JSONObject result=new JSONObject();
 		result.put("success", true);
-		ResponseUtil.write(response, result);
-		return null;
+		return result;
 	}
 }

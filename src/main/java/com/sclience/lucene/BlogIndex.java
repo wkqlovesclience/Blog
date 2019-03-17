@@ -37,7 +37,7 @@ import com.sclience.util.StringUtil;
 
 /**
  * 博客索引类
- * @author Administrator
+ * @author wangkeqiang
  *
  */
 public class BlogIndex {

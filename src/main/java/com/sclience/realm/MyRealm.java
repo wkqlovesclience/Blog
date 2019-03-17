@@ -16,7 +16,7 @@ import com.sclience.service.BloggerService;
 
 /**
  * 自定义Realm
- * @author java1234_小锋
+ * @author wangkeqiang
  *
  */
 public class MyRealm extends AuthorizingRealm{

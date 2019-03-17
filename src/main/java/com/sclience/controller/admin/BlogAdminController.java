@@ -16,17 +16,17 @@ import com.sclience.entity.Blog;
 import com.sclience.entity.PageBean;
 import com.sclience.lucene.BlogIndex;
 import com.sclience.service.BlogService;
-import com.sclience.util.ResponseUtil;
 import com.sclience.util.StringUtil;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 /**
  * 管理员博客Controller层
- * @author Administrator
+ * @author wangkeqiang
  *
  */
 @Controller
@@ -47,7 +47,8 @@ public class BlogAdminController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/save")
-	public String save(Blog blog,HttpServletResponse response)throws Exception{
+	@ResponseBody
+	public Object save(Blog blog,HttpServletResponse response)throws Exception{
 		int resultTotal=0; // 操作的记录条数
 		if(blog.getId()==null){
 			resultTotal=blogService.add(blog);
@@ -62,21 +63,20 @@ public class BlogAdminController {
 		}else{
 			result.put("success", false);
 		}
-		ResponseUtil.write(response, result);
-		return null;
+		return result;
 	}
 	
 	/**
 	 * 分页查询博客信息
 	 * @param page
 	 * @param rows
-	 * @param s_customer
 	 * @param response
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/list")
-	public String list(@RequestParam(value="page",required=false)String page,@RequestParam(value="rows",required=false)String rows,Blog s_blog,HttpServletResponse response)throws Exception{
+	@ResponseBody
+	public Object list(@RequestParam(value="page",required=false)String page,@RequestParam(value="rows",required=false)String rows,Blog s_blog,HttpServletResponse response)throws Exception{
 		PageBean pageBean=new PageBean(Integer.parseInt(page),Integer.parseInt(rows));
 		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("title", StringUtil.formatLike(s_blog.getTitle()));
@@ -90,8 +90,7 @@ public class BlogAdminController {
 		JSONArray jsonArray=JSONArray.fromObject(blogList,jsonConfig);
 		result.put("rows", jsonArray);
 		result.put("total", total);
-		ResponseUtil.write(response, result);
-		return null;
+		return result;
 	}
 	
 	/**
@@ -102,7 +101,8 @@ public class BlogAdminController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/delete")
-	public String delete(@RequestParam(value="ids")String ids,HttpServletResponse response)throws Exception{
+	@ResponseBody
+	public Object delete(@RequestParam(value="ids")String ids,HttpServletResponse response)throws Exception{
 		String []idsStr=ids.split(",");
 		for(int i=0;i<idsStr.length;i++){
 			blogService.delete(Integer.parseInt(idsStr[i]));
@@ -110,23 +110,20 @@ public class BlogAdminController {
 		}
 		JSONObject result=new JSONObject();
 		result.put("success", true);
-		ResponseUtil.write(response, result);
-		return null;
+		return result;
 	}
 	
 	/**
 	 * 通过ID查找实体
 	 * @param id
-	 * @param response
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/findById")
-	public String findById(@RequestParam(value="id")String id,HttpServletResponse response)throws Exception{
+	@ResponseBody
+	public Object findById(@RequestParam(value="id")String id)throws Exception{
 		Blog blog=blogService.findById(Integer.parseInt(id));
-		JSONObject jsonObject=JSONObject.fromObject(blog);
-		ResponseUtil.write(response, jsonObject);
-		return null;
+		return JSONObject.fromObject(blog);
 	}
 	
 }

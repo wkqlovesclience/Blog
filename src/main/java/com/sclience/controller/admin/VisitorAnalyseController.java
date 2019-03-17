@@ -1,6 +1,5 @@
 package com.sclience.controller.admin;
 
-import com.sclience.entity.Visitor;
 import com.sclience.pojo.VisitoryPojo;
 import com.sclience.pojo.VisitoryTrendPojo;
 import com.sclience.service.VisitorService;
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
 
@@ -17,35 +15,12 @@ import java.util.*;
 public class VisitorAnalyseController {
     @Autowired
     private VisitorService visitorService;
-
-    @RequestMapping("/userAnalyse")
-    @ResponseBody
-    public String userAnalyse(){
-        Map<String,String> map = new HashMap<String,String>();
-
-        return null;
-    }
-
-
-
     @RequestMapping("/visitorStatistic")
     @ResponseBody
     public List<VisitoryPojo> visitorStatistic() {
         List<VisitoryPojo> visitorInProvinceCount = visitorService.getVisitorInProvinceCount();
         return visitorInProvinceCount;
     }
-
-
-    @RequestMapping("/activeUser")
-    @ResponseBody
-    public Map<String ,Object> activeUser(){
-        HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("intervals",new String[]{"5天","15天","30天","半年","一年",});
-        map.put("count",new int[]{10,15,20,27,49});
-        return map;
-    }
-
-
     @RequestMapping("/getTrendChartStatistic")
     @ResponseBody
     public Map<String,Object> getTrendChartStatistic(String yearNum){
@@ -63,9 +38,7 @@ public class VisitorAnalyseController {
         map.put("intervals",month);
         map.put("count",count);
         return map;
-
     }
-
     public String getSysYear() {
         Calendar date = Calendar.getInstance();
         String year = String.valueOf(date.get(Calendar.YEAR));

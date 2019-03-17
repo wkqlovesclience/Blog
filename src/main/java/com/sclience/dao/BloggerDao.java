@@ -4,7 +4,7 @@ import com.sclience.entity.Blogger;
 
 /**
  * 博主Dao接口
- * @author java1234_小锋
+ * @author wangkeqiang
  *
  */
 public interface BloggerDao {

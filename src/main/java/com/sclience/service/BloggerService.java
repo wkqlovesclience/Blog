@@ -4,7 +4,7 @@ import com.sclience.entity.Blogger;
 
 /**
  * 博主Service接口
- * @author java1234_小锋
+ * @author wangkeqiang
  *
  */
 public interface BloggerService {

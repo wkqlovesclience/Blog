@@ -20,7 +20,7 @@ import com.sclience.util.StringUtil;
 
 /**
  * 主页Controller
- * @author Administrator
+ * @author wangkeqiang
  *
  */
 @Controller

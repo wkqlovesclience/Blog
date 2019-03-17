@@ -22,7 +22,7 @@ import com.sclience.util.StringUtil;
 
 /**
  * 博客Controller层
- * @author Administrator
+ * @author wangkeqiang
  *
  */
 @Controller

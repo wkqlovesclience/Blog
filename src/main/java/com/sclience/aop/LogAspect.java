@@ -27,13 +27,7 @@ public class LogAspect {
     @Pointcut(value = "@annotation(LogAnnotation)")
     public void poinCut() {
 
-    }
-
-    /*@Pointcut(value = "execution(* com.baizhi.fl.service.*.*(..))")  //还可以   基于注解 方法二
-    public void poinCut(){
-
-    }*/
-
+    } 
     //定义环绕通知
     @Around(value = "poinCut()") //引入切入点
     public Object around(ProceedingJoinPoint proceedingJoinPoint) {

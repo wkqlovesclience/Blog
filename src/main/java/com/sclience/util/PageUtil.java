@@ -2,7 +2,7 @@ package com.sclience.util;
 
 /**
  * 分页工具类
- * @author Administrator
+ * @author wangkeqiang
  *
  */
 public class PageUtil {
