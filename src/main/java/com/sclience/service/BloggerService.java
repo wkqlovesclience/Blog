@@ -2,6 +2,8 @@ package com.sclience.service;
 
 import com.sclience.entity.Blogger;
 
+import java.util.List;
+
 /**
  * 博主Service接口
  * @author wangkeqiang
@@ -28,4 +30,18 @@ public interface BloggerService {
 	 * @return
 	 */
 	public Integer update(Blogger blogger);
+
+	/**
+	 * 查询全部博主
+	 */
+
+	public List<Blogger> getAllBlogger();
+
+	/**
+	 * 通过id查询博主
+	 */
+
+	public Blogger getBloggerByPrimaryKey(Integer id);
+
+
 }

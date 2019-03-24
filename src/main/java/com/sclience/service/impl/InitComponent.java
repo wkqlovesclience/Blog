@@ -20,38 +20,36 @@ import com.sclience.service.BloggerService;
 
 /**
  * 初始化组件 把博主信息 根据博客类别分类信息 根据日期归档分类信息 存放到application中，用以提供页面请求性能
- * @author wangkeqiang
  *
+ * @author wangkeqiang
  */
 @Component
-public class InitComponent implements ServletContextListener,ApplicationContextAware{
+public class InitComponent implements ServletContextListener, ApplicationContextAware {
 
-	private static ApplicationContext applicationContext;
-	
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		// TODO Auto-generated method stub
-		this.applicationContext=applicationContext;
-	}
+    private static ApplicationContext applicationContext;
 
-	public void contextInitialized(ServletContextEvent servletContextEvent) {
-		ServletContext application=servletContextEvent.getServletContext();
-		BloggerService bloggerService=(BloggerService) applicationContext.getBean("bloggerService");
-		Blogger blogger=bloggerService.find(); // 查询博主信息
-		blogger.setPassword(null);
-		application.setAttribute("blogger", blogger);
-		
-		BlogTypeService blogTypeService=(BlogTypeService) applicationContext.getBean("blogTypeService");
-		List<BlogType> blogTypeCountList=blogTypeService.countList(); // 查询博客类别以及博客的数量
-		application.setAttribute("blogTypeCountList", blogTypeCountList);
-		
-		BlogService blogService=(BlogService) applicationContext.getBean("blogService");
-		List<Blog> blogCountList=blogService.countList(); // 根据日期分组查询博客
-		application.setAttribute("blogCountList", blogCountList);
-	}
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        // TODO Auto-generated method stub
+        this.applicationContext = applicationContext;
+    }
 
-	public void contextDestroyed(ServletContextEvent sce) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void contextInitialized(ServletContextEvent servletContextEvent) {
+        ServletContext application = servletContextEvent.getServletContext();
+        BloggerService bloggerService = (BloggerService) applicationContext.getBean("bloggerService");
+        BlogTypeService blogTypeService = (BlogTypeService) applicationContext.getBean("blogTypeService");
+        List<BlogType> blogTypeCountList = blogTypeService.countList(); // 查询博客类别以及博客的数量
+        application.setAttribute("blogTypeCountList", blogTypeCountList);
+        BlogService blogService = (BlogService) applicationContext.getBean("blogService");
+        List<Blog> blogCountList = blogService.countList(); // 根据日期分组查询博客
+        application.setAttribute("blogCountList", blogCountList);
+        List<Blogger> bloggerList = bloggerService.getAllBlogger();
+        application.setAttribute("bloggerList", bloggerList);
+
+    }
+
+    public void contextDestroyed(ServletContextEvent sce) {
+        // TODO Auto-generated method stub
+
+    }
 
 }

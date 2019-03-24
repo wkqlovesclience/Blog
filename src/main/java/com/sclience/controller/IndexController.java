@@ -1,13 +1,12 @@
 package com.sclience.controller;
 
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.sclience.aop.LogAnnotation;
+import com.sclience.annotation.VisitorAnnotation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,8 +35,8 @@ public class IndexController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/index")
-	@LogAnnotation(name = "主页")
-	public ModelAndView index(@RequestParam(value="page",required=false)String page,@RequestParam(value="typeId",required=false)String typeId,@RequestParam(value="releaseDateStr",required=false)String releaseDateStr,HttpServletRequest request)throws Exception{
+	@VisitorAnnotation(name = "主页")
+	public ModelAndView index(@RequestParam(value="page",required=false)String page,@RequestParam(value="typeId",required=false)String typeId,@RequestParam(value="releaseDateStr",required=false)String releaseDateStr,@RequestParam(value="bloggerId",required=false)Integer bloggerId,HttpServletRequest request)throws Exception{
         ModelAndView mav=new ModelAndView();
 		if(StringUtil.isEmpty(page)){
 			page="1";
@@ -48,6 +47,8 @@ public class IndexController {
 		map.put("size", pageBean.getPageSize());
 		map.put("typeId", typeId);
 		map.put("releaseDateStr", releaseDateStr);
+		map.put("blogStatus",1);
+		map.put("bloggerId",bloggerId);
 		mav.addObject("blogList", blogService.list(map));
 		StringBuffer param=new StringBuffer(); // 查询参数
 		if(StringUtil.isNotEmpty(typeId)){
@@ -69,7 +70,7 @@ public class IndexController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/download")
-	@LogAnnotation(name = "源码下载")
+	@VisitorAnnotation(name = "源码下载")
 	public ModelAndView download()throws Exception{
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("mainPage", "foreground/system/download.jsp");

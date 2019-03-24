@@ -59,14 +59,14 @@
         window.onload=function(){
             //设置年份的选择
             var myDate= new Date();
-            var startYear=myDate.getFullYear()-10;//起始年份
-            var endYear=myDate.getFullYear()+10;//结束年份
+            var startYear=myDate.getFullYear()-3;//起始年份
+            var endYear=myDate.getFullYear();//结束年份
             var obj=document.getElementById('myYear')
             for (var i=startYear;i<=endYear;i++)
             {
                 obj.options.add(new Option(i,i));
             }
-            obj.options[obj.options.length-11].selected=1;
+            obj.options[obj.options.length-1].selected=1;
         }
     </script>
 

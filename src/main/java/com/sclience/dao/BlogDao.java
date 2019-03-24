@@ -37,6 +37,15 @@ public interface BlogDao {
 	 * @return
 	 */
 	public Blog findById(Integer id);
+
+	/**
+	 * 通过Id查找实体,忽略状态
+	 * @param id
+	 * @return
+	 */
+	public Blog findByIdIgnoreStatus(Integer id);
+
+
 	
 	/**
 	 * 更新博客信息
@@ -72,6 +81,11 @@ public interface BlogDao {
 	 * @return
 	 */
 	public Integer delete(Integer id);
-	
-	
+
+	/**
+	 * 根据博主id获取博主文章数量
+	 * @param id
+	 * @return
+	 */
+	public Integer getBlogNumByBlogger(Integer id);
 }

@@ -42,7 +42,7 @@
 	<div>
 	   <div class="blog_title"><h3><strong>${blog.title }</strong></h3></div>
 		<div class="blog_info">
-			发布时间：『 <fmt:formatDate value="${blog.releaseDate }" type="date" pattern="yyyy-MM-dd HH:mm"/>』&nbsp;&nbsp;博客类别：${blog.blogType.typeName}&nbsp;&nbsp;阅读(${blog.clickHit}) 评论(${blog.replyHit})
+			博主：<a href="${pageContext.request.contextPath}/index.html?bloggerId=${blog.blogger.id}">${blog.blogger.nickName}</a>&nbsp;&nbsp;发布时间：『 <fmt:formatDate value="${blog.releaseDate }" type="date" pattern="yyyy-MM-dd HH:mm"/>』&nbsp;&nbsp;博客类别：${blog.blogType.typeName}&nbsp;&nbsp;阅读(${blog.clickHit}) 评论(${blog.replyHit})
 		</div>
 		<div class="blog_content">
 			${blog.content }

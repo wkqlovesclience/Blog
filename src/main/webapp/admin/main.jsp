@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,6 +13,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery-easyui-1.3.3/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript">
+
 
 	var url;
 	
@@ -33,7 +35,7 @@
 	
 	function openPasswordModifyDialog(){
 		$("#dlg").dialog("open").dialog("setTitle","修改密码");
-		url="${pageContext.request.contextPath}/admin/blogger/modifyPassword.do?id=${currentUser.id}";
+		url="${pageContext.request.contextPath}/admin/blogger/modifyPassword.do";
 	}
 	
 	function modifyPassword(){
@@ -101,7 +103,7 @@
 	<table style="padding: 5px" width="100%">
 		<tr>
 			<td valign="bottom" align="right" width="50%">
-				<font size="3">&nbsp;&nbsp;<strong>欢迎：</strong>${currentUser.userName }</font>
+				<font size="3">&nbsp;&nbsp;<strong>欢迎：</strong>${currentUser.managerRole }</font>
 			</td>
 		</tr>
 	</table>
@@ -122,22 +124,29 @@
 			<a href="javascript:openTab('写博客','writeBlog.jsp','icon-writeblog')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-writeblog'" style="width: 150px;">写博客</a>
 			<a href="javascript:openTab('博客信息管理','blogManage.jsp','icon-bkgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-bkgl'" style="width: 150px;">博客信息管理</a>
 		</div>
+		<c:if test="${currentUser.managerRole=='admin'}">
 		<div title="博客类别管理" data-options="iconCls:'icon-bklb'" style="padding:10px">
 			<a href="javascript:openTab('博客类别信息管理','blogTypeManage.jsp','icon-bklb')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-bklb'" style="width: 150px;">博客类别信息管理</a>
 		</div>
 		<div title="评论管理"  data-options="iconCls:'icon-plgl'" style="padding:10px">
 			<a href="javascript:openTab('评论信息管理','commentManage.jsp','icon-plgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-plgl'" style="width: 150px;">评论信息管理</a>
 		</div>
+		<div title="日志管理"  data-options="iconCls:'icon-log'" style="padding:10px">
+			<a href="javascript:openTab('日志管理','blogLogManage.jsp','icon-plgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-log'" style="width: 150px;">日志管理</a>
+		</div>
 		<div title="访客分析"  data-options="iconCls:'icon-visitor'" style="padding:10px">
 			<a href="javascript:openTab('访客分析','visitorAnalyse.jsp','icon-plgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-map'" style="width: 150px;">访客分析</a>
 			<a href="javascript:openTab('流量趋势','visitorTrend.jsp','icon-plgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-trend'" style="width: 150px;">流量趋势</a>
 		</div>
+		</c:if>
 		<div title="个人信息管理"  data-options="iconCls:'icon-grxx'" style="padding:10px">
 			<a href="javascript:openTab('修改个人信息','modifyInfo.jsp','icon-grxxxg')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-grxxxg'" style="width: 150px;">修改个人信息</a>
 		</div>
 		<div title="系统管理"  data-options="iconCls:'icon-system'" style="padding:10px">
 			<a href="javascript:openPasswordModifyDialog()" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-modifyPassword'" style="width: 150px;">修改密码</a>
+			<c:if test="${currentUser.managerRole=='admin'}">
 			<a href="javascript:refreshSystem()" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-refresh'" style="width: 150px;">刷新系统缓存</a>
+			</c:if>
 			<a href="javascript:logout()" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-exit'" style="width: 150px;">安全退出</a>
 		</div>
 	</div>
@@ -152,6 +161,7 @@
    <form id="fm" method="post">
    	<table cellspacing="8px">
    		<tr>
+			<input type="hidden" name="id" value="${currentUser.id}" />
    			<td>用户名：</td>
    			<td><input type="text" id="userName" name="userName" readonly="readonly" value="${currentUser.userName }" style="width: 200px"/></td>
    		</tr>

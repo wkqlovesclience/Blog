@@ -32,24 +32,27 @@
 			<div class="data_list">
 				<div class="data_list_title">
 					<img src="${pageContext.request.contextPath}/static/images/comment_icon.png"/>
-					扫一扫，加我哟
+					扫一扫，加管理员
 				</div>
 				<div class="user_image">
 					<img src="${pageContext.request.contextPath}/static/images/wechat.jpg"/>
 				</div>
 			</div>
+
 			<div class="data_list">
 				<div class="data_list_title">
 					<img src="${pageContext.request.contextPath}/static/images/user_icon.png"/>
-					博主信息
+					按博主分类
 				</div>
-				<div class="user_image">
-					<img src="${pageContext.request.contextPath}/static/userImages/${blogger.imageName }"/>
+				<div class="datas">
+					<ul>
+						<c:forEach var="blogger" items="${bloggerList }">
+							<li><span><a href="${pageContext.request.contextPath}/index.html?bloggerId=${blogger.id}">${blogger.nickName}(${blogger.blogNum})</a></span></li>
+						</c:forEach>
+					</ul>
 				</div>
-				<div class="nickName">${blogger.nickName }</div>
-				<div class="userSign">(${blogger.sign })</div>
 			</div>
-			
+
 			<div class="data_list">
 				<div class="data_list_title">
 					<img src="${pageContext.request.contextPath}/static/images/byType_icon.png"/>
@@ -77,6 +80,7 @@
 					</ul>
 				</div>
 			</div>
+
 		</div>
 		<div class="col-md-9">
 			<jsp:include page="${mainPage }"></jsp:include>

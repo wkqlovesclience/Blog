@@ -8,6 +8,8 @@ import com.sclience.dao.BloggerDao;
 import com.sclience.entity.Blogger;
 import com.sclience.service.BloggerService;
 
+import java.util.List;
+
 /**
  * 博主Service实现类
  * @author wangkeqiang
@@ -30,6 +32,14 @@ public class BloggerServiceImpl implements BloggerService{
 	public Integer update(Blogger blogger) {
 		return bloggerDao.update(blogger);
 	}
-	
-	
+
+	public List<Blogger> getAllBlogger() {
+		return bloggerDao.findAll();
+	}
+
+	public Blogger getBloggerByPrimaryKey(Integer id) {
+		return bloggerDao.findById(id);
+	}
+
+
 }

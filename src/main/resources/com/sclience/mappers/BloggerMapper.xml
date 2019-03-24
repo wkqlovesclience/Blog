@@ -12,10 +12,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="sign" column="sign"/>
 		<result property="proFile" column="proFile"/>
 		<result property="imageName" column="imageName"/>
+		<result property="managerRole" column="manager_role" />
+		<association property="blogNum" column="id" select="com.sclience.dao.BlogDao.getBlogNumByBlogger" />
 	</resultMap>
+
+
+	<select id="findById"  resultMap="BloggerResult">
+		select * from t_blogger where id=#{id};
+	</select>
 	
 	<select id="find"  resultMap="BloggerResult">
 		select * from t_blogger where id=1;
+	</select>
+
+	<select id="findAll"  resultMap="BloggerResult">
+		select * from t_blogger
 	</select>
 	
 	<select id="getByUserName" parameterType="String" resultMap="BloggerResult">
@@ -41,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				imageName=#{imageName},
 			</if>
 		</set>
-		where id=1
+		where id=#{id}
 	</update>
 	
 </mapper> 

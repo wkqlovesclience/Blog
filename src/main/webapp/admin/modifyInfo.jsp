@@ -103,6 +103,6 @@
         );
     });
     
-</script>
+</td>
 </body>
 </html>

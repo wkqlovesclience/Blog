@@ -20,11 +20,11 @@ import java.util.Date;
 
 @Configuration
 @Aspect
-public class LogAspect {
+public class VisitorAspect {
     @Autowired
     private VisitorService visitorService;
     //定义切入点
-    @Pointcut(value = "@annotation(LogAnnotation)")
+    @Pointcut(value = "@annotation(com.sclience.annotation.VisitorAnnotation)")
     public void poinCut() {
 
     } 

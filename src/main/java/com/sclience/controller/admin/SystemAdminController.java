@@ -5,6 +5,8 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+
+import com.sclience.annotation.BlogLogAnnotation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,6 +45,7 @@ public class SystemAdminController {
 	 */
 	@RequestMapping("/refreshSystem")
 	@ResponseBody
+    @BlogLogAnnotation(name = "刷新系统缓存")
 	public Object refreshSystem(HttpServletRequest request)throws Exception{
 		ServletContext application=RequestContextUtils.getWebApplicationContext(request).getServletContext();
 		Blogger blogger=bloggerService.find(); // 查询博主信息
@@ -52,6 +55,8 @@ public class SystemAdminController {
 		application.setAttribute("blogTypeCountList", blogTypeCountList);
 		List<Blog> blogCountList=blogService.countList(); // 根据日期分组查询博客
 		application.setAttribute("blogCountList", blogCountList);
+		List<Blogger> bloggerList = bloggerService.getAllBlogger();
+		application.setAttribute("bloggerList", bloggerList);
 		JSONObject result=new JSONObject();
 		result.put("success", true);
 		return result;

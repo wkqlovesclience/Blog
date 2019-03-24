@@ -22,7 +22,8 @@
 		var title=$("#title").val();
 		var blogTypeId=$("#blogTypeId").combobox("getValue");
 		var content=UE.getEditor('editor').getContent();
-		
+		var blog_status=0;
+		var bloggerId = ${currentUser.id};
 		if(title==null || title==''){
 			alert("请输入标题！");
 		}else if(blogTypeId==null || blogTypeId==''){
@@ -30,9 +31,13 @@
 		}else if(content==null || content==''){
 			alert("请输入内容！");
 		}else{
-			$.post("${pageContext.request.contextPath}/admin/blog/save.do",{'title':title,'blogType.id':blogTypeId,'content':content,'contentNoTag':UE.getEditor('editor').getContentTxt(),'summary':UE.getEditor('editor').getContentTxt().substr(0,155)},function(result){
+			$.post("${pageContext.request.contextPath}/admin/blog/save.do",{'title':title,'blogType.id':blogTypeId,'content':content,'blogStatus':blog_status,'blogger.id': bloggerId,'contentNoTag':UE.getEditor('editor').getContentTxt(),'summary':UE.getEditor('editor').getContentTxt().substr(0,155)},function(result){
 				if(result.success){
-					alert("博客发布成功！");
+					if (${currentUser.managerRole=='admin'}) {
+						alert("博客发布成功！");
+					}else {
+						alert("博客已提交审核！");
+					}
 					resetValue();
 				}else{
 					alert("博客发布失败！");

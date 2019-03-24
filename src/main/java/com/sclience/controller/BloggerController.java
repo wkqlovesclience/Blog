@@ -3,7 +3,8 @@ package com.sclience.controller;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.sclience.aop.LogAnnotation;
+import com.sclience.annotation.BlogLogAnnotation;
+import com.sclience.annotation.VisitorAnnotation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -54,7 +55,7 @@ public class BloggerController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/aboutMe")
-	@LogAnnotation(name = "根据关键字查询相关博客信息")
+	@VisitorAnnotation(name = "根据关键字查询相关博客信息")
 	public ModelAndView aboutMe()throws Exception{
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("blogger",bloggerService.find());

@@ -22,6 +22,7 @@
 		 }
 		 var strIds=[];
 		 for(var i=0;i<selectedRows.length;i++){
+		 	alert(strIds.push(selectedRows[i].id));
 			 strIds.push(selectedRows[i].id);
 		 }
 		 var ids=strIds.join(",");

@@ -37,6 +37,13 @@ public interface BlogService {
 	 * @return
 	 */
 	public Blog findById(Integer id);
+
+	/**
+	 * 通过Id查找实体 忽略状态
+	 * @param id
+	 * @return
+	 */
+	public Blog findByIdIgnoreStatus(Integer id);
 	
 	/**
 	 * 更新博客信息

@@ -4,7 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.sclience.aop.LogAnnotation;
+import com.sclience.annotation.VisitorAnnotation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,7 +39,7 @@ public class CommentController {
      * @throws Exception
      */
     @RequestMapping("/save")
-    @LogAnnotation(name = "添加或者修改评论")
+    @VisitorAnnotation(name = "添加或者修改评论")
     @ResponseBody
     public Object save(Comment comment, @RequestParam("imageCode") String imageCode, HttpServletRequest request, HttpSession session) throws Exception {
         String sRand = (String) session.getAttribute("sRand"); // 获取系统生成的验证码

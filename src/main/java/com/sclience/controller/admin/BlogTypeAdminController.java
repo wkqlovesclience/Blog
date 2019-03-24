@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
+
+import com.sclience.annotation.BlogLogAnnotation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,6 +37,7 @@ public class BlogTypeAdminController {
 	 */
 	@RequestMapping("/list")
 	@ResponseBody
+    @BlogLogAnnotation(name = "分页查询博客类别信息")
 	public Object list(@RequestParam(value="page",required=false)String page,@RequestParam(value="rows",required=false)String rows)throws Exception{
 		PageBean pageBean=new PageBean(Integer.parseInt(page),Integer.parseInt(rows));
 		Map<String,Object> map=new HashMap<String,Object>();
@@ -58,6 +60,7 @@ public class BlogTypeAdminController {
 	 */
 	@RequestMapping("/save")
 	@ResponseBody
+    @BlogLogAnnotation(name = "添加或者修改博客类别信息")
 	public Object save(BlogType blogType)throws Exception{
 		int resultTotal=0; // 操作的记录条数
 		if(blogType.getId()==null){
@@ -82,6 +85,7 @@ public class BlogTypeAdminController {
 	 */
 	@RequestMapping("/delete")
 	@ResponseBody
+    @BlogLogAnnotation(name = "删除博客类别信息")
 	public Object delete(@RequestParam(value="ids")String ids)throws Exception{
 		String []idsStr=ids.split(",");
 		for(int i=0;i<idsStr.length;i++){

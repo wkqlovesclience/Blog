@@ -1,11 +1,13 @@
 package com.sclience.controller.admin;
 
 import java.io.File;
+import java.io.PrintWriter;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sclience.annotation.BlogLogAnnotation;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +43,7 @@ public class BloggerAdminController {
      * @throws Exception
      */
     @RequestMapping("/save")
-    @ResponseBody
+    @BlogLogAnnotation(name = "修改博主信息")
     public Object save(@RequestParam("imageFile") MultipartFile imageFile, Blogger blogger, HttpServletRequest request, HttpServletResponse response) throws Exception {
         if (!imageFile.isEmpty()) {
             String filePath = request.getServletContext().getRealPath("/");
@@ -56,7 +58,11 @@ public class BloggerAdminController {
         } else {
             result.append("<script language='javascript'>alert('修改失败！');</script>");
         }
-        return result;
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter writer = response.getWriter();
+        writer.println(result.toString());
+        writer.close();
+        return null;
     }
 
     /**
@@ -67,6 +73,7 @@ public class BloggerAdminController {
      */
     @RequestMapping("/find")
     @ResponseBody
+    @BlogLogAnnotation(name = "查询博主信息")
     public Object find() throws Exception {
         return JSONObject.fromObject(bloggerService.find());
     }
@@ -81,8 +88,9 @@ public class BloggerAdminController {
      */
     @RequestMapping("/modifyPassword")
     @ResponseBody
-    public Object modifyPassword(String newPassword, HttpServletResponse response) throws Exception {
-        Blogger blogger = new Blogger();
+    @BlogLogAnnotation(name = "修改博主密码")
+    public Object modifyPassword(Integer id ,String newPassword, HttpServletResponse response) throws Exception {
+        Blogger blogger = bloggerService.getBloggerByPrimaryKey(id);
         blogger.setPassword(CryptographyUtil.md5(newPassword, "sclience"));
         int resultTotal = bloggerService.update(blogger);
         JSONObject result = new JSONObject();
@@ -101,6 +109,7 @@ public class BloggerAdminController {
      * @throws Exception
      */
     @RequestMapping("/logout")
+    @BlogLogAnnotation(name = "注销")
     public String logout() throws Exception {
         SecurityUtils.getSubject().logout();
         return "redirect:/login.jsp";

@@ -12,12 +12,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="clickHit" column="clickHit"/>
 		<result property="replyHit" column="replyHit"/>
 		<result property="content" column="content"/>
+		<result property="blogStatus" column="blog_status"/>
 		<association property="blogType" column="typeId" select="com.sclience.dao.BlogTypeDao.findById"></association>
-		
+		<association property="blogger" column="blogger_id" select="com.sclience.dao.BloggerDao.findById"></association>
 	</resultMap>
 	
 	<select id="countList"  resultMap="BlogResult">
-		SELECT DATE_FORMAT(releaseDate,'%Y年%m月') AS releaseDateStr ,COUNT(*) AS blogCount  FROM t_blog GROUP BY DATE_FORMAT(releaseDate,'%Y年%m月') ORDER BY DATE_FORMAT(releaseDate,'%Y年%m月') DESC;
+		SELECT DATE_FORMAT(releaseDate,'%Y年%m月') AS releaseDateStr ,COUNT(*) AS blogCount  FROM t_blog WHERE blog_status = 1 GROUP BY DATE_FORMAT(releaseDate,'%Y年%m月') ORDER BY DATE_FORMAT(releaseDate,'%Y年%m月') DESC;
 	</select>
 	
 	<select id="list" parameterType="Map" resultMap="BlogResult">
@@ -31,6 +32,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 			<if test="releaseDateStr!=null and releaseDateStr!='' ">
 				and DATE_FORMAT(releaseDate,'%Y年%m月') = #{releaseDateStr}
+			</if>
+			<if test="blogStatus!=null and blogStatus!='' ">
+				and blog_status = #{blogStatus}
+			</if>
+			<if test="bloggerId!=null">
+				and blogger_id = #{bloggerId}
 			</if>
 		</where>
 		order by releaseDate desc
@@ -51,10 +58,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="releaseDateStr!=null and releaseDateStr!='' ">
 				and DATE_FORMAT(releaseDate,'%Y年%m月') = #{releaseDateStr}
 			</if>
+			<if test="blogStatus!=null and blogStatus!='' ">
+				and blog_status = #{blogStatus}
+			</if>
 		</where>
 	</select>
 	
 	<select id="findById" parameterType="Integer" resultMap="BlogResult">
+		select * from t_blog where id=#{id} and blog_status = 1
+	</select>
+
+	<select id="findByIdIgnoreStatus" parameterType="Integer" resultMap="BlogResult">
 		select * from t_blog where id=#{id}
 	</select>
 	
@@ -79,24 +93,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="replyHit!=null ">
 				replyHit=#{replyHit},
 			</if>
+			<if test="blogStatus!=null ">
+				blog_status=#{blogStatus},
+			</if>
 		</set>
 		where id=#{id}
 	</update>
 	
 	<select id="getLastBlog" parameterType="Integer" resultMap="BlogResult">
-		SELECT * FROM t_blog WHERE id&lt;#{id} ORDER BY id DESC LIMIT 1
+		SELECT * FROM t_blog WHERE id&lt;#{id} AND blog_status=1 ORDER BY id DESC LIMIT 1
 	</select>
 	
 	<select id="getNextBlog" parameterType="Integer" resultMap="BlogResult">
-		SELECT * FROM t_blog WHERE id&gt;#{id} ORDER BY id ASC LIMIT 1
+		SELECT * FROM t_blog WHERE id&gt;#{id} AND blog_status=1 ORDER BY id ASC LIMIT 1
 	</select>
 	
 	
 	<insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="Blog">
-		insert into t_blog values(null,#{title},#{summary},now(),0,0,#{content},#{blogType.id})
+		insert into t_blog values(null,#{title},#{summary},now(),0,0,#{content},#{blogType.id},#{blogStatus},#{blogger.id})
 	</insert>
 	
 	<delete id="delete" parameterType="Integer">
 		delete from t_blog where id=#{id}
 	</delete>
+
+	<select id="getBlogNumByBlogger" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT count(*) FROM t_blog WHERE blog_status = 1 AND blogger_id = #{id}
+	</select>
 </mapper> 

@@ -9,6 +9,19 @@
   <url>http://maven.apache.org</url>
   <build>
     <finalName>Blog</finalName>
+	  <plugins>
+
+		  <plugin>
+			  <groupId>org.mybatis.generator</groupId>
+			  <artifactId>mybatis-generator-maven-plugin</artifactId>
+			  <version>1.3.2</version>
+			  <configuration>
+				  <configurationFile>src/main/resources/generatorConfig.xml</configurationFile> <!--此处是配置文件的位置-->
+				  <overwrite>true</overwrite>
+				  <verbose>true</verbose>
+			  </configuration>
+		  </plugin>
+	  </plugins>
   </build>
   
   <dependencies>

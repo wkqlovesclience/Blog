@@ -7,7 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.sclience.aop.LogAnnotation;
+import com.sclience.annotation.VisitorAnnotation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +45,7 @@ public class BlogController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/articles/{id}")
-	@LogAnnotation(name = "博客详细信息")
+	@VisitorAnnotation(name = "博客详细信息")
 	public ModelAndView details(@PathVariable("id") Integer id,HttpServletRequest request)throws Exception{
 		ModelAndView mav=new ModelAndView();
 		Blog blog=blogService.findById(id);
@@ -69,7 +69,7 @@ public class BlogController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/q")
-	@LogAnnotation(name = "根据关键字查询相关博客信息")
+	@VisitorAnnotation(name = "根据关键字查询相关博客信息")
 	public ModelAndView search(@RequestParam(value="q",required=false)String q,@RequestParam(value="page",required=false)String page,HttpServletRequest request)throws Exception{
 		if(StringUtil.isEmpty(page)){
 			page="1";

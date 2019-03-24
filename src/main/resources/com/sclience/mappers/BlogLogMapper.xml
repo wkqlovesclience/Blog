@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sclience.dao.BlogLogDao">
+    <resultMap id="BaseResultMap" type="com.sclience.entity.BlogLog">
+        <id column="log_id" property="logId" jdbcType="INTEGER"/>
+        <result column="log_title" property="logTitle" jdbcType="VARCHAR"/>
+        <result column="log_content" property="logContent" jdbcType="VARCHAR"/>
+        <result column="log_operator_id" property="logOperatorId" jdbcType="INTEGER"/>
+        <result column="log_date" property="logDate" jdbcType="TIMESTAMP"/>
+        <association property="blogger" column="log_operator_id" select="com.sclience.dao.BloggerDao.findById" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    log_id, log_title, log_content, log_operator_id, log_date,blog_status
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_logs
+        where log_id = #{logId,jdbcType=INTEGER}
+    </select>
+
+    <select id="list" parameterType="Map" resultMap="BaseResultMap">
+        select * from t_logs
+        order by log_date DESC
+        <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>
+    </select>
+
+    <select id="getTotal" parameterType="Map" resultType="Long">
+		select count(*) from t_logs
+	</select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_logs
+    where log_id = #{logId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.sclience.entity.BlogLog">
+    insert into t_logs (log_id, log_title, log_content, 
+      log_operator_id, log_date)
+    values (#{logId,jdbcType=INTEGER}, #{logTitle,jdbcType=VARCHAR}, #{logContent,jdbcType=VARCHAR}, 
+      #{logOperatorId,jdbcType=INTEGER}, #{logDate,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.sclience.entity.BlogLog">
+        insert into t_logs
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="logId != null">
+                log_id,
+            </if>
+            <if test="logTitle != null">
+                log_title,
+            </if>
+            <if test="logContent != null">
+                log_content,
+            </if>
+            <if test="logOperatorId != null">
+                log_operator_id,
+            </if>
+            <if test="logDate != null">
+                log_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="logId != null">
+                #{logId,jdbcType=INTEGER},
+            </if>
+            <if test="logTitle != null">
+                #{logTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="logContent != null">
+                #{logContent,jdbcType=VARCHAR},
+            </if>
+            <if test="logOperatorId != null">
+                #{logOperatorId,jdbcType=INTEGER},
+            </if>
+            <if test="logDate != null">
+                #{logDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.sclience.entity.BlogLog">
+        update t_logs
+        <set>
+            <if test="logTitle != null">
+                log_title = #{logTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="logContent != null">
+                log_content = #{logContent,jdbcType=VARCHAR},
+            </if>
+            <if test="logOperatorId != null">
+                log_operator_id = #{logOperatorId,jdbcType=INTEGER},
+            </if>
+            <if test="logDate != null">
+                log_date = #{logDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where log_id = #{logId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.sclience.entity.BlogLog">
+    update t_logs
+    set log_title = #{logTitle,jdbcType=VARCHAR},
+      log_content = #{logContent,jdbcType=VARCHAR},
+      log_operator_id = #{logOperatorId,jdbcType=INTEGER},
+      log_date = #{logDate,jdbcType=TIMESTAMP}
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+</mapper>

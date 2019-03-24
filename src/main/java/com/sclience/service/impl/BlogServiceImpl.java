@@ -38,6 +38,10 @@ public class BlogServiceImpl implements BlogService{
 		return blogDao.findById(id);
 	}
 
+	public Blog findByIdIgnoreStatus(Integer id){
+		return blogDao.findByIdIgnoreStatus(id);
+	}
+
 	public Integer update(Blog blog) {
 		return blogDao.update(blog);
 	}
