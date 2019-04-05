@@ -7,20 +7,16 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-
 import com.sclience.annotation.BlogLogAnnotation;
 import com.sclience.entity.Blogger;
 import com.sclience.service.BloggerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.sclience.entity.Blog;
 import com.sclience.entity.PageBean;
-import com.sclience.lucene.BlogIndex;
 import com.sclience.service.BlogService;
 import com.sclience.util.StringUtil;
-
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
@@ -41,8 +37,6 @@ public class BlogAdminController {
     @Resource
     private BloggerService bloggerService;
 
-    // 博客索引
-    private BlogIndex blogIndex = new BlogIndex();
 
     /**
      * 添加或者修改博客信息
@@ -59,12 +53,12 @@ public class BlogAdminController {
         int resultTotal = 0; // 操作的记录条数
         if (blog.getId() == null) {
             resultTotal = blogService.add(blog);
-            blogIndex.addIndex(blog); // 添加博客索引
         } else {
             Blogger blogger = bloggerService.getBloggerByPrimaryKey(blog.getBlogger().getId());
+            Blog blogById = blogService.findById(blog.getId());
             blog.setBlogger(blogger);
+            blog.setReleaseDate(blogById.getReleaseDate());
             resultTotal = blogService.update(blog);
-            blogIndex.updateIndex(blog); // 更新博客索引
         }
         JSONObject result = new JSONObject();
         if (resultTotal > 0) {
@@ -120,9 +114,8 @@ public class BlogAdminController {
     @BlogLogAnnotation(name = "刪除博客信息")
     public Object delete(@RequestParam(value = "ids") String ids, HttpServletResponse response) throws Exception {
         String[] idsStr = ids.split(",");
-        for (int i = 0; i < idsStr.length; i++) {
-            blogService.delete(Integer.parseInt(idsStr[i]));
-            blogIndex.deleteIndex(idsStr[i]); // 删除对应博客的索引
+        for (String s : idsStr) {
+            blogService.delete(Integer.parseInt(s));
         }
         JSONObject result = new JSONObject();
         result.put("success", true);
@@ -130,7 +123,7 @@ public class BlogAdminController {
     }
 
     /**
-     * 删除博客信息
+     * 发布博客信息
      *
      * @param ids
      * @param response
@@ -145,7 +138,7 @@ public class BlogAdminController {
         for (int i = 0; i < idsStr.length; i++) {
             Blog blog = blogService.findByIdIgnoreStatus(Integer.parseInt(idsStr[i]));
             blog.setBlogStatus(1);
-            blogService.update(blog);
+            blogService.updateToPublishBlog(blog);
         }
         JSONObject result = new JSONObject();
         result.put("success", true);

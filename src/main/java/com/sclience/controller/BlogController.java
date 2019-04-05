@@ -7,15 +7,14 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.iscliecne.elastic.IBlogElasticService;
 import com.sclience.annotation.VisitorAnnotation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.sclience.entity.Blog;
-import com.sclience.lucene.BlogIndex;
 import com.sclience.service.BlogService;
 import com.sclience.service.CommentService;
 import com.sclience.util.StringUtil;
@@ -34,9 +33,10 @@ public class BlogController {
 	
 	@Resource
 	private CommentService commentService;
-	
-	// 博客索引
-	private BlogIndex blogIndex=new BlogIndex();
+
+	@Resource
+	private IBlogElasticService blogElasticService;
+
 	
 	
 	/**
@@ -50,8 +50,12 @@ public class BlogController {
 		ModelAndView mav=new ModelAndView();
 		Blog blog=blogService.findById(id);
 		mav.addObject("blog", blog);
-		blog.setClickHit(blog.getClickHit()+1); // 博客点击次数加1
-		blogService.update(blog);
+		String viewStatus = (String) request.getSession().getAttribute("viewStatus");
+		if (StringUtil.isEmpty(viewStatus)){
+			blog.setClickHit(blog.getClickHit()+1); // 博客点击次数加1
+			blogService.update(blog);
+			request.getSession().setAttribute("viewStatus","yes");
+		}
 		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("blogId", blog.getId());
 		mav.addObject("commentList", commentService.list(map)); // 查询所有评论信息
@@ -76,7 +80,7 @@ public class BlogController {
 		}
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("mainPage", "foreground/blog/result.jsp");
-		List<Blog> blogList=blogIndex.searchBlog(q);
+		List<com.iscliecne.entity.Blog> blogList = blogElasticService.searchBlog(q);
 		Integer toIndex=blogList.size()>=Integer.parseInt(page)*10?Integer.parseInt(page)*10:blogList.size();
 		mav.addObject("blogList",blogList.subList((Integer.parseInt(page)-1)*10, toIndex));
 		mav.addObject("pageCode",this.genUpAndDownPageCode(Integer.parseInt(page), blogList.size(), q,10,request.getServletContext().getContextPath()));

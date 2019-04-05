@@ -12,6 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="clickHit" column="clickHit"/>
 		<result property="replyHit" column="replyHit"/>
 		<result property="content" column="content"/>
+		<result property="contentNoTag" column="contentNoTag" />
 		<result property="blogStatus" column="blog_status"/>
 		<association property="blogType" column="typeId" select="com.sclience.dao.BlogTypeDao.findById"></association>
 		<association property="blogger" column="blogger_id" select="com.sclience.dao.BloggerDao.findById"></association>
@@ -84,6 +85,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="content!=null and content!='' ">
 				content=#{content},
 			</if>
+			<if test="contentNoTag!=null and contentNoTag!='' ">
+				contentNoTag=#{contentNoTag},
+			</if>
 			<if test="blogType.id!=null ">
 				typeId=#{blogType.id},
 			</if>
@@ -109,8 +113,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
-	<insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="Blog">
-		insert into t_blog values(null,#{title},#{summary},now(),0,0,#{content},#{blogType.id},#{blogStatus},#{blogger.id})
+	<insert id="add" parameterType="Blog">
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+			select LAST_INSERT_ID()
+		</selectKey>
+		insert into t_blog values(null,#{title},#{summary},now(),0,0,#{content},#{contentNoTag},#{blogType.id},#{blogStatus},#{blogger.id})
 	</insert>
 	
 	<delete id="delete" parameterType="Integer">

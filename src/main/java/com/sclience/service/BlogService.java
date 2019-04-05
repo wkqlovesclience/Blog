@@ -50,7 +50,15 @@ public interface BlogService {
 	 * @param blog
 	 * @return
 	 */
-	public Integer update(Blog blog); 
+	public Integer update(Blog blog);
+
+
+	/**
+	 * 发布博客
+	 * @param blog
+	 * @return
+	 */
+	public Integer updateToPublishBlog(Blog blog);
 	
 	/**
 	 * 获取上一个博客
