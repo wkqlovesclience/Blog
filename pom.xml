@@ -267,12 +267,6 @@
 		  <version>0.10</version>
 	  </dependency>
 
-	  <dependency>
-		  <groupId>com.sclience</groupId>
-		  <artifactId>elastic-search-dubbo</artifactId>
-		  <version>1.0-SNAPSHOT</version>
-	  </dependency>
-
 	
 	
   </dependencies>
