@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Blog" options="-extdirs src\main\webapp\WEB-INF\lib" />
+      <module name="Blog" options="-extdirs F:\曾经的代码\java就业项目-博客系统V1.0\Blog/src/main/webapp/WEB-INF/lib" />
     </option>
   </component>
 </project>
