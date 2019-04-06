@@ -2,7 +2,6 @@ package com.sclience.controller.admin;
 
 import com.sclience.annotation.BlogLogAnnotation;
 import com.sclience.entity.BlogLog;
-import com.sclience.entity.Comment;
 import com.sclience.entity.PageBean;
 import com.sclience.service.BlogLogService;
 import net.sf.json.JSONArray;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
