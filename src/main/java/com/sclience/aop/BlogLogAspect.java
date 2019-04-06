@@ -27,7 +27,6 @@ public class BlogLogAspect {
     //定义切入点
     @Pointcut(value = "@annotation(com.sclience.annotation.BlogLogAnnotation)")
     public void poinCut() {
-
     } 
     //定义环绕通知
     @Around(value = "poinCut()") //引入切入点
