@@ -63,19 +63,4 @@ public class IndexController {
 		mav.setViewName("mainTemp");
 		return mav;
 	}
-	
-	/**
-	 * 源码下载
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/download")
-	@VisitorAnnotation(name = "源码下载")
-	public ModelAndView download()throws Exception{
-		ModelAndView mav=new ModelAndView();
-		mav.addObject("mainPage", "foreground/system/download.jsp");
-		mav.addObject("pageTitle","源码下载_我想靜靜博客");
-		mav.setViewName("mainTemp");
-		return mav;
-	}
 }

@@ -12,7 +12,11 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js"></script>
 
 <script type="text/javascript">
-
+	function formatCommentStatus(val,row){
+		if (val==0) return "未发布";
+		if (val==1) return "已发布";
+		if (val==2) return "已删除";
+	}
 
 	function deleteComment(){
 		var selectedRows=$("#dg").datagrid("getSelections");
@@ -39,6 +43,31 @@
 				} 
 	   });
 	}
+
+	function publishComment(){
+		var selectedRows=$("#dg").datagrid("getSelections");
+		if(selectedRows.length==0){
+			$.messager.alert("系统提示","请选择要发布的评论！");
+			return;
+		}
+		var strIds=[];
+		for(var i=0;i<selectedRows.length;i++){
+			strIds.push(selectedRows[i].id);
+		}
+		var ids=strIds.join(",");
+		$.messager.confirm("系统提示","您确定要发布这<font color=red>"+selectedRows.length+"</font>条数据吗？",function(r){
+			if(r){
+				$.post("${pageContext.request.contextPath}/admin/comment/publish.do",{ids:ids},function(result){
+					if(result.success){
+						$.messager.alert("系统提示","评论已成功发布！");
+						$("#dg").datagrid("reload");
+					}else{
+						$.messager.alert("系统提示","评论发布失败！");
+					}
+				},"json");
+			}
+		});
+	}
 	
 	function formatBlogTitle(val,row){
 		if(val==null){
@@ -58,16 +87,18 @@
    	<tr>
    		<th field="cb" checkbox="true" align="center"></th>
    		<th field="id" width="20" align="center">编号</th>
-   		<th field="blog" width="200" align="center" formatter="formatBlogTitle">博客标题</th>
-   		<th field="userIp" width="100" align="center">用户IP</th>
+   		<th field="blog" width="150" align="center" formatter="formatBlogTitle">博客标题</th>
+   		<th field="userIp" width="80" align="center">用户IP</th>
    		<th field="content" width="200" align="center">评论内容</th>
    		<th field="commentDate" width="50" align="center">评论日期</th>
+		<th field="commentStatus" width="60" align="center" formatter="formatCommentStatus">是否发布</th>
    	</tr>
    </thead>
  </table>
  <div id="tb">
  	<div>
  		<a href="javascript:deleteComment()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+		<a href="javascript:publishComment()" class="easyui-linkbutton" iconCls="icon-redo" plain="true">发布</a>
  	</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
  </div>
  

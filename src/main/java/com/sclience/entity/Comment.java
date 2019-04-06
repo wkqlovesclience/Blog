@@ -14,6 +14,7 @@ public class Comment {
 	private String content; // 评论内容
 	private Blog blog; // 被评论的博客
 	private Date commentDate; // 评论日期
+	private Integer commentStatus;//评论状态  0 已提交  1已通过  2已删除
 	
 	public Integer getId() {
 		return id;
@@ -45,6 +46,12 @@ public class Comment {
 	public void setCommentDate(Date commentDate) {
 		this.commentDate = commentDate;
 	}
-	
-	
+
+	public Integer getCommentStatus() {
+		return commentStatus;
+	}
+
+	public void setCommentStatus(Integer commentStatus) {
+		this.commentStatus = commentStatus;
+	}
 }

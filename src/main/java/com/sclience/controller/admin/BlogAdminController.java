@@ -80,7 +80,6 @@ public class BlogAdminController {
      */
     @RequestMapping("/list")
     @ResponseBody
-    @BlogLogAnnotation(name = "分页查询博客信息")
     public Object list(@RequestParam(value = "page", required = false) String page, @RequestParam(value = "rows", required = false) String rows, Blog s_blog,String managerRole,String bloggerId, HttpServletResponse response) throws Exception {
         PageBean pageBean = new PageBean(Integer.parseInt(page), Integer.parseInt(rows));
         Map<String, Object> map = new HashMap<String, Object>();

@@ -18,14 +18,12 @@ public class VisitorAnalyseController {
     private VisitorService visitorService;
     @RequestMapping("/visitorStatistic")
     @ResponseBody
-    @BlogLogAnnotation(name = "访客区域分析")
     public List<VisitoryPojo> visitorStatistic() {
         List<VisitoryPojo> visitorInProvinceCount = visitorService.getVisitorInProvinceCount();
         return visitorInProvinceCount;
     }
     @RequestMapping("/getTrendChartStatistic")
     @ResponseBody
-    @BlogLogAnnotation(name = "访客流量趋势分析")
     public Map<String,Object> getTrendChartStatistic(String yearNum){
         if (yearNum==null){
             yearNum = getSysYear();

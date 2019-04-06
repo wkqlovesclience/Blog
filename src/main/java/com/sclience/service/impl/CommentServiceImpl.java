@@ -38,4 +38,12 @@ public class CommentServiceImpl implements CommentService{
 		return commentDao.delete(id);
 	}
 
+	public Comment findByIdIgnoreStatus(Integer id) {
+		return commentDao.findByIdIgnoreStatus(id);
+	}
+
+	public Integer updateComment(Comment comment) {
+		return commentDao.update(comment);
+	}
+
 }

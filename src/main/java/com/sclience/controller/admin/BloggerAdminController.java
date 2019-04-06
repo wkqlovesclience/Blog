@@ -73,7 +73,6 @@ public class BloggerAdminController {
      */
     @RequestMapping("/find")
     @ResponseBody
-    @BlogLogAnnotation(name = "查询博主信息")
     public Object find() throws Exception {
         return JSONObject.fromObject(bloggerService.find());
     }

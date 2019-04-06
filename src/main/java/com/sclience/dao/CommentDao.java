@@ -39,6 +39,21 @@ public interface CommentDao {
 	 * @return
 	 */
 	public Integer delete(Integer id);
+
+	/**
+	 * 修改评论（不允许修改内容，只允许修改评论状态）
+	 * @param comment
+	 * @return
+	 */
+	public Integer update(Comment comment);
+
+
+	/**
+	 * 根据主键查询评论信息
+	 * @param id
+	 * @return
+	 */
+	public Comment findByIdIgnoreStatus(Integer id);
 	
 	
 }

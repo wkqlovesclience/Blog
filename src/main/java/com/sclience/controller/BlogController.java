@@ -58,6 +58,7 @@ public class BlogController {
 		}
 		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("blogId", blog.getId());
+		map.put("visitor","visitor");
 		mav.addObject("commentList", commentService.list(map)); // 查询所有评论信息
 		mav.addObject("pageCode", this.genUpAndDownPageCode(blogService.getLastBlog(id),blogService.getNextBlog(id),request.getServletContext().getContextPath()));
 		mav.addObject("mainPage", "foreground/blog/view.jsp");

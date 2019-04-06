@@ -8,18 +8,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="id" column="id"/>
 		<result property="userIp" column="userIp"/>
 		<result property="content" column="content"/>
+		<result property="commentStatus" column="commentStatus"/>
 		<association property="blog" column="blogId" select="com.sclience.dao.BlogDao.findById"></association>
 	</resultMap>
 	
 	<insert id="add" parameterType="Comment">
-		insert into t_comment values(null,#{userIp},#{blog.id},#{content},now())
+		insert into t_comment values(null,#{userIp},#{blog.id},#{content},now(),#{commentStatus})
 	</insert>
-	
+
+	<select id="findByIdIgnoreStatus" parameterType="Integer" resultMap="CommentResult">
+		select * from t_comment where id=#{id}
+	</select>
 	<select id="list" parameterType="Map" resultMap="CommentResult">
-		select * from t_comment
+		select t1.* from t_comment t1 left join t_blog t2 on t1.blogId=t2.id
 		<where>
 			<if test="blogId!=null">
-				and blogId=#{blogId}
+				and t1.blogId=#{blogId}
+			</if>
+			<if test="bloggerId!=null">
+				and t2.blogger_id=#{bloggerId}
+			</if>
+			<if test="visitor!=null">
+				and t1.commentStatus=1
 			</if>
 		</where>
 		order by commentDate DESC
@@ -30,10 +40,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="getTotal" parameterType="Map" resultType="Long">
 		select count(*) from t_comment
+		<where>
+			<if test="blogId!=null">
+				and blogId=#{blogId}
+			</if>
+		</where>
 	</select>
 	
 	
 	<delete id="delete" parameterType="Integer">
 		delete from t_comment where id=#{id}
 	</delete>
+
+	<update id="update" parameterType="Comment">
+		update t_comment
+		<set>
+			<if test="commentStatus!=null">
+				commentStatus=#{commentStatus},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
 </mapper> 

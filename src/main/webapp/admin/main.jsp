@@ -128,9 +128,6 @@
 		<div title="博客类别管理" data-options="iconCls:'icon-bklb'" style="padding:10px">
 			<a href="javascript:openTab('博客类别信息管理','blogTypeManage.jsp','icon-bklb')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-bklb'" style="width: 150px;">博客类别信息管理</a>
 		</div>
-		<div title="评论管理"  data-options="iconCls:'icon-plgl'" style="padding:10px">
-			<a href="javascript:openTab('评论信息管理','commentManage.jsp','icon-plgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-plgl'" style="width: 150px;">评论信息管理</a>
-		</div>
 		<div title="日志管理"  data-options="iconCls:'icon-log'" style="padding:10px">
 			<a href="javascript:openTab('日志管理','blogLogManage.jsp','icon-plgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-log'" style="width: 150px;">日志管理</a>
 		</div>
@@ -139,6 +136,9 @@
 			<a href="javascript:openTab('流量趋势','visitorTrend.jsp','icon-plgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-trend'" style="width: 150px;">流量趋势</a>
 		</div>
 		</c:if>
+		<div title="评论管理"  data-options="iconCls:'icon-plgl'" style="padding:10px">
+			<a href="javascript:openTab('评论信息管理','commentManage.jsp','icon-plgl')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-plgl'" style="width: 150px;">评论信息管理</a>
+		</div>
 		<div title="个人信息管理"  data-options="iconCls:'icon-grxx'" style="padding:10px">
 			<a href="javascript:openTab('修改个人信息','modifyInfo.jsp','icon-grxxxg')" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-grxxxg'" style="width: 150px;">修改个人信息</a>
 		</div>

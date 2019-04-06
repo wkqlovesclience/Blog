@@ -40,4 +40,13 @@ public interface CommentService {
 	 * @return
 	 */
 	public Integer delete(Integer id);
+
+	/**
+	 * 根据主键查询评论
+	 * @param id
+	 * @return
+	 */
+	public Comment findByIdIgnoreStatus(Integer id);
+
+	public Integer updateComment(Comment comment);
 }

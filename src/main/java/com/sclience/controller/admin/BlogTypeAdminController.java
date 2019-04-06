@@ -37,7 +37,6 @@ public class BlogTypeAdminController {
 	 */
 	@RequestMapping("/list")
 	@ResponseBody
-    @BlogLogAnnotation(name = "分页查询博客类别信息")
 	public Object list(@RequestParam(value="page",required=false)String page,@RequestParam(value="rows",required=false)String rows)throws Exception{
 		PageBean pageBean=new PageBean(Integer.parseInt(page),Integer.parseInt(rows));
 		Map<String,Object> map=new HashMap<String,Object>();

@@ -41,7 +41,7 @@ public class CommentController {
     @RequestMapping("/save")
     @VisitorAnnotation(name = "添加或者修改评论")
     @ResponseBody
-    public Object save(Comment comment, @RequestParam("imageCode") String imageCode, HttpServletRequest request, HttpSession session) throws Exception {
+    public Object save(Comment comment, @RequestParam("imageCode") String imageCode, HttpServletRequest request, HttpSession session) {
         String sRand = (String) session.getAttribute("sRand"); // 获取系统生成的验证码
         JSONObject result = new JSONObject();
         int resultTotal = 0; // 操作的记录条数
@@ -51,15 +51,12 @@ public class CommentController {
         } else {
             String userIp = request.getRemoteAddr(); // 获取用户IP
             comment.setUserIp(userIp);
-            if (comment.getId() == null) {
-                resultTotal = commentService.add(comment);
-                // 该博客的回复次数加1
-                Blog blog = blogService.findById(comment.getBlog().getId());
-                blog.setReplyHit(blog.getReplyHit() + 1);
-                blogService.update(blog);
-            } else {
-
-            }
+            comment.setCommentStatus(0);
+            resultTotal = commentService.add(comment);
+            // 该博客的回复次数加1
+            Blog blog = blogService.findById(comment.getBlog().getId());
+            blog.setReplyHit(blog.getReplyHit() + 1);
+            blogService.update(blog);
             if (resultTotal > 0) {
                 result.put("success", true);
             } else {
