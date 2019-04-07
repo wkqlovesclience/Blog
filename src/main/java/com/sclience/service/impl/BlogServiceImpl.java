@@ -49,12 +49,7 @@ public class BlogServiceImpl implements BlogService{
 	}
 
 	public Integer update(Blog blog) {
-		Integer update = blogDao.update(blog);
-		com.iscliecne.entity.Blog blogToIndex = new com.iscliecne.entity.Blog();
-		BeanUtils.copyProperties(blog,blogToIndex);
-		blogToIndex.setReleaseDateStr(sdf.format(blog.getReleaseDate()));
-		blogElasticService.updateIndex(blogToIndex);// 更新博客索引
-		return update;
+		return blogDao.update(blog);
 	}
 
 	public Integer updateToPublishBlog(Blog blog){

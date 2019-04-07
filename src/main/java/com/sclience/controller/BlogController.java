@@ -51,7 +51,7 @@ public class BlogController {
 		Blog blog=blogService.findById(id);
 		mav.addObject("blog", blog);
 		String viewStatus = (String) request.getSession().getAttribute("viewStatus");
-		if (StringUtil.isEmpty(viewStatus)){
+		if (!StringUtil.isEmpty(viewStatus)){
 			blog.setClickHit(blog.getClickHit()+1); // 博客点击次数加1
 			blogService.update(blog);
 			request.getSession().setAttribute("viewStatus","yes");
