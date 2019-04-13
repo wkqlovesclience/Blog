@@ -37,6 +37,7 @@ public class BlogController {
 	@Resource
 	private IBlogElasticService blogElasticService;
 
+
 	
 	
 	/**
